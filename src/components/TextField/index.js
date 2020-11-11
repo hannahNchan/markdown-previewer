@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const InputTextField = ({ vh, name, setLines }) => {
+const InputTextField = ({ vh, name, setLines, readHTML, children }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState('Controlled');
   const [rowN, setRowN] = React.useState(1);
@@ -58,7 +58,9 @@ const InputTextField = ({ vh, name, setLines }) => {
   const styler = { height: `${vh - 95}px` };
 
   const handleChangeText = e => {
-    const readTXT = document.querySelector('textarea').value;
+    const element = document.querySelector('textarea');
+    const readTXT = element.value;
+    readHTML(readTXT);
     const lines = readTXT.split(/\r|\r\n|\n/);
     const count = lines.length; 
     e.preventDefault();
@@ -94,7 +96,7 @@ const InputTextField = ({ vh, name, setLines }) => {
           onChange={(e) => handleChangeText(e)}
           className={classes.textArea}
           fullWidth
-          id="standard-textarea"
+          id="editor"
           label={name}
           multiline
           variant="outlined"
